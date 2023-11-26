@@ -37,8 +37,32 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
 
+      it 'category_idが1では登録できない' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
+      it 'category_idが半角数値以外では登録できない' do
+        @item.category_id = '２'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
       it 'condition_idが空では登録できない' do
         @item.condition_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+
+      it 'condition_idが1では登録できない' do
+        @item.condition_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+
+      it 'condition_idが半角数値以外では登録できない' do
+        @item.condition_id = '２'
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
@@ -49,14 +73,50 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Delivery charge status can't be blank")
       end
 
+      it 'delivery_charge_idが1では登録できない' do
+        @item.delivery_charge_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery charge status can't be blank")
+      end
+
+      it 'delivery_charge_idが半角数値以外では登録できない' do
+        @item.delivery_charge_id = '２'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery charge status can't be blank")
+      end
+
       it 'prefecture_idが空では登録できない' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
 
+      it 'prefecture_idが1では登録できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
+      it 'prefecture_idが半角数値以外では登録できない' do
+        @item.prefecture_id = '２'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
       it 'delivery_day_idが空では登録できない' do
         @item.delivery_day_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery day can't be blank")
+      end
+
+      it 'delivery_day_idが1では登録できない' do
+        @item.delivery_day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery day can't be blank")
+      end
+
+      it 'delivery_day_idが半角数値以外では登録できない' do
+        @item.delivery_day_id = '２'
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery day can't be blank")
       end
