@@ -27,9 +27,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if Item.find(params[:id]).user.id == current_user.id
-      redirect_to root_path
-    end
+    return unless Item.find(params[:id]).user.id == current_user.id
+
+    redirect_to root_path
   end
 
   def update
