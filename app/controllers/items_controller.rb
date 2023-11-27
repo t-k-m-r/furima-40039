@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
     @items = Item.order(created_at: :DESC)
   end
@@ -22,6 +24,24 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find_by(id: params[:id])
+  end
+
+  def edit
+    unless Item.find(params[:id]).user.id == current_user.id
+      redirect_to root_path
+    else
+      @item = Item.find_by(id: params[:id])
+    end
+    
+  end
+
+  def update
+    @item = Item.find_by(id: params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item.id)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
