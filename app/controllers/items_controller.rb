@@ -41,10 +41,9 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    return unless Item.find(params[:id]).user.id == current_user.id
+    @item.destroy if Item.find(params[:id]).user.id == current_user.id
 
     redirect_to root_path
-    @item.destroy
   end
 
   private
