@@ -6,6 +6,7 @@ RSpec.describe PurchaseHistoryAddress, type: :model do
     buyer = FactoryBot.create(:user)
     item = FactoryBot.create(:item, user_id: user.id)
     @purchase_history_address = FactoryBot.build(:purchase_history_address, user_id: buyer.id, item_id: item.id)
+    sleep 0.01
   end
 
   describe '購入情報の保存' do
