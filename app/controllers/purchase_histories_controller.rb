@@ -1,17 +1,16 @@
 class PurchaseHistoriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @purchase_history_address = PurchaseHistoryAddress.new
-    @item = Item.find_by(id: params[:item_id])
     if current_user.id == @item.user_id || PurchaseHistory.find_by(item_id: @item.id) != nil
       redirect_to root_path
     end
   end
 
   def create
-    @item = Item.find_by(id: params[:item_id])
     @purchase_history_address = PurchaseHistoryAddress.new(address_params)
     if @purchase_history_address.valid?
       pay_item
@@ -26,7 +25,10 @@ class PurchaseHistoriesController < ApplicationController
   private
 
   def address_params
-    params.require(:purchase_history_address).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:purchase_history_address
+    ).permit(:postal_code, :prefecture_id, :city, :address, :building, :phone_number
+    ).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
@@ -38,4 +40,7 @@ class PurchaseHistoriesController < ApplicationController
     )
   end
 
+  def set_item
+    @item = Item.find_by(id: params[:item_id])
+  end
 end
