@@ -7,6 +7,8 @@ class PurchaseHistoryAddress
   validates :city,                  presence: true
   validates :address,               presence: true
   validates :phone_number,          presence: true, format: { with: /\A\d{10,11}\z/, message: "is invalid. Input only number"}
+  validates :user_id,               presence: { message: 'must exist' }
+  validates :item_id,               presence: { message: 'must exist' }
 
   def save
     purchase_history = PurchaseHistory.create(user_id: user_id, item_id: item_id)
