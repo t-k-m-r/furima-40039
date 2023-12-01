@@ -25,16 +25,14 @@
       </span>
     </div>
 
-    <% if user_signed_in? && @item.user.id == current_user.id %>
-      <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
-      <p class="or-text">or</p>
-      <%= link_to "削除", item_path, method: :delete, class:"item-destroy", data: { turbo_method: :delete } %>
-    <% elsif user_signed_in? && @item.user.id != current_user.id %>
-
-      <% if PurchaseHistory.find_by(item_id: @item.id) == nil %>
+    <% if PurchaseHistory.find_by(item_id: @item.id) == nil %>
+      <% if user_signed_in? && @item.user.id == current_user.id %>
+        <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", item_path, method: :delete, class:"item-destroy", data: { turbo_method: :delete } %>
+      <% elsif user_signed_in? && @item.user.id != current_user.id %>
         <%= link_to "購入画面に進む", item_purchase_histories_path(@item.id) ,class:"item-red-btn"%>
       <% end %>
-
     <% end %>
 
     <div class="item-explain-box">
