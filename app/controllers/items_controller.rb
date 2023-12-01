@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    return unless Item.find(params[:id]).user.id == current_user.id
+    return if PurchaseHistory.find_by(item_id: @item.id).nil? && (Item.find(params[:id]).user.id == current_user.id)
 
     redirect_to root_path
   end
