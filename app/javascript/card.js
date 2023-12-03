@@ -1,6 +1,5 @@
-// const pay = () => {
 function pay (){
-  if(null != gon.public_key) {
+  if(null != document.getElementById("number-form")) {
     const publicKey = gon.public_key
     const payjp = Payjp(publicKey)
     const elements = payjp.elements();
@@ -32,5 +31,5 @@ function pay (){
   }
 };
 
-window.addEventListener("turbo:load", pay);
+window.addEventListener('DOMContentLoaded', pay);
 window.addEventListener("turbo:render", pay);
